@@ -17,15 +17,11 @@ public class TransactionLog {
     // Add fields here
     //
     private List<Transaction> transactionList;
-    private DatabaseHelper databaseHelper;
-    private MFT_DAO mftDao;
-    private MFT mft;
     // Constructor
     // TODO L03P02 Model 1.1:Implement the Constructor in TransactionLog
 
     public TransactionLog() {
         transactionList = new ArrayList<>();
-        TransactionLog transactionLog = new TransactionLog();
     }
 
     public List<Transaction> getTransactionList() {
@@ -36,29 +32,6 @@ public class TransactionLog {
         this.transactionList = transactionList;
     }
 
-    public DatabaseHelper getDatabaseHelper() {
-        return databaseHelper;
-    }
-
-    public void setDatabaseHelper(DatabaseHelper databaseHelper) {
-        this.databaseHelper = databaseHelper;
-    }
-
-    public MFT_DAO getMftDao() {
-        return mftDao;
-    }
-
-    public void setMftDao(MFT_DAO mftDao) {
-        this.mftDao = mftDao;
-    }
-
-    public MFT getMft() {
-        return mft;
-    }
-
-    public void setMft(MFT mft) {
-        this.mft = mft;
-    }
 
     // Append a Transaction to the TransactionLog
     // Returns true when succesful
@@ -66,10 +39,11 @@ public class TransactionLog {
     //  The method takes a Transaction as an input and appends it to the log,
     //  returning if the transaction was successfully inserted or not.
     public boolean insertTransaction(Transaction transaction) {
-        if (transaction != null) {
-            transactionList.add(transaction);
+        if (transaction == null){
+            return false;
         }
-        return transactionList.contains(transaction);
+        return transactionList.add(transaction);
+
     }
 
     // Returns the first Transaction in the TransactionLog

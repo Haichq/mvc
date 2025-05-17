@@ -46,9 +46,7 @@ public class MFT_DAO {
     // If the MFT is not found in the TransactionLog, return -1
     // DO NOT CHANGE THE METHOD SIGNATURE
 	public int getOwnerId(MFT mft) {
-       if (!transactionLog.getMft().equals(mft)){
-           return -1;
-       }
+
         return mft.getId();
 	}
 
