@@ -25,6 +25,7 @@ public class TransactionLog {
 
     public TransactionLog() {
         transactionList = new ArrayList<>();
+        TransactionLog transactionLog = new TransactionLog();
     }
 
     public List<Transaction> getTransactionList() {
