@@ -34,16 +34,15 @@ public class TransactionLog {
 
 
     // Append a Transaction to the TransactionLog
-    // Returns true when succesful
+    // Returns true when successful
     // TODO L03P02 Model 1.2: Implement the insertTransaction method in TransactionLog
     //  The method takes a Transaction as an input and appends it to the log,
     //  returning if the transaction was successfully inserted or not.
     public boolean insertTransaction(Transaction transaction) {
-        if (transaction == null){
+        if (transaction == null) {
             return false;
         }
         return transactionList.add(transaction);
-
     }
 
     // Returns the first Transaction in the TransactionLog
@@ -66,7 +65,19 @@ public class TransactionLog {
         if (!transactionList.contains(transaction) || transactionList.size() == 1) {
             return null;
         }
-       //Iterator
+        Iterator<Transaction> iterator = transactionList.iterator();
+        Transaction current;
+        int index = 0;
+        while (iterator.hasNext()) {
+            current = iterator.next();
+            index++;
+            if (current.equals(transaction)) {
+                break;
+            }
+        }
+        if (index < transactionList.size()){
+            return transactionList.get(index+1);
+        }
         return null;
     }
 
