@@ -38,14 +38,18 @@ public class MFT_DAO {
 		return databaseHelper.selectAll();
 	}
 
-    // TODO L03P02 Model 1.5: Implement getOwnerId method in MFT_DAO
+    // TODO L03P02 Model 1.5: Implement getOwnerId method in MFT_DAO.
+    //  returns the ID of the current owner (int). This can only be found out in the log.
     // Implement the following method
     // - getOwnerId(MFT mft): int
     // This method should return the owner id of the given MFT
     // If the MFT is not found in the TransactionLog, return -1
     // DO NOT CHANGE THE METHOD SIGNATURE
 	public int getOwnerId(MFT mft) {
-		return -1;
+       if (!transactionLog.getMft().equals(mft)){
+           return -1;
+       }
+        return mft.getId();
 	}
 
     // TODO L03P02 Model 1.6: Implement recordTransaction method in MFT_DAO
