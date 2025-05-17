@@ -53,16 +53,20 @@ public class Controller {
         if (ownerID == buyerID) {
             throw new Exception("You can not buy mft from yourself");
         }
-
-
         double mftPrice = mft.getPrice();
+        if (view.getBalance() < mftPrice) {
+            throw new Exception("You don#t have enough money");
+        }
+
         Transaction transaction;
-        if (ownerID != buyerID) {
+        if (view.getBalance() >= mftPrice) {
             mftDAO.addMFT(buyerID, mft);
+            view.setBalance(view.getBalance()-mftPrice);
+          mftDAO.recordTransaction(mftDAO.getOwnerId(mft), buyerID, mft.getId(), mftPrice);
 
         }
 
-        mftDAO.updateMFT(mft);
+
 
     }
 
@@ -74,8 +78,10 @@ public class Controller {
     // This method should allow you to change the price of an MFT that you own
     // DO NOT CHANGE THE METHOD SIGNATURE
     public void changePrice(MFT mft, double newPrice) throws Exception {
+        int ownerId = mftDAO.getOwnerId(mft);
         if (mft.getId() == mftDAO.getOwnerId(mft)) {
 
+            mftDAO.addMFT(ownerId, mft);
         }
     }
 }
