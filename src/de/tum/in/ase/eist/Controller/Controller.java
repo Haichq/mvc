@@ -46,6 +46,18 @@ public class Controller {
     // If buying is possible, add the Transaction to the TransactionLog
     // DO NOT CHANGE THE METHOD SIGNATURE
     public void buyMFT(MFT mft, int buyerID) throws Exception {
+     double mftPrice = mft.getPrice();
+     Transaction transaction ;
+     int ownerID = mftDAO.getOwnerId(mft);
+     if (ownerID != buyerID ){
+         mftDAO.addMFT(buyerID, mft);
+
+     }
+     mftDAO.updateMFT(mft);
+
+
+
+
     }
 
     // TODO L03P02 Controller 2.2: Implement changePrice method
