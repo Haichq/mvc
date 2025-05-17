@@ -75,7 +75,7 @@ public class TransactionLog {
                 break;
             }
         }
-        if (index < transactionList.size()){
+        if (index < transactionList.size()-1){
             return transactionList.get(index+1);
         }
         return null;
