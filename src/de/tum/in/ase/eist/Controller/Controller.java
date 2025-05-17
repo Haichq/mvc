@@ -53,6 +53,10 @@ public class Controller {
          mftDAO.addMFT(buyerID, mft);
 
      }
+     if (ownerID == buyerID){
+         throw new Exception("You can not buy mft from yourself");
+     }
+
      mftDAO.updateMFT(mft);
 
 
@@ -61,10 +65,15 @@ public class Controller {
     }
 
     // TODO L03P02 Controller 2.2: Implement changePrice method
+    //  This method should allow you to change the price of an MFT that you already own.
+    //  The price can only be changed if the user is the owner of the MFT and all inputs are valid. The database is updated accordingly and the view is notified.
     // Implement the following method
     // - changePrice(MFT mft, double newPrice): void
     // This method should allow you to change the price of an MFT that you own
     // DO NOT CHANGE THE METHOD SIGNATURE
     public void changePrice(MFT mft, double newPrice) throws Exception {
+        if (mft.getId() == mftDAO.getOwnerId(mft)){
+
+        }
     }
 }

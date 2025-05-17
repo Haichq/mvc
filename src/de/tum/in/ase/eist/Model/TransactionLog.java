@@ -65,22 +65,6 @@ public class TransactionLog {
         if ( transaction ==null ||!transactionList.contains(transaction) || transactionList.size() == 1 ) {
             return null;
         }
-        /*
-        Iterator<Transaction> iterator = transactionList.iterator();
-        Transaction current;
-        int index = 0;
-        while (iterator.hasNext()) {
-            current = iterator.next();
-            index++;
-            if (current.equals(transaction)) {
-                break;
-            }
-        }
-        if (index < transactionList.size()-1){
-            return transactionList.get(index+1);
-        }
-
-         */
         int index = transactionList.indexOf(transaction);
         if (index+1<transactionList.size()){
             return transactionList.get(index+1);
