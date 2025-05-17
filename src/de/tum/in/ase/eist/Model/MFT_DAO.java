@@ -63,7 +63,8 @@ public class MFT_DAO {
     // DO NOT CHANGE THE METHOD SIGNATURE
     public boolean recordTransaction(int Seller, int Buyer, int MFTId, double price) {
         Transaction transaction = new Transaction(Seller, Buyer, MFTId, price);
-       return transactionLog.getTransactionList().add(transaction);
+
+       return transactionLog.insertTransaction(transaction);
 
     }
 }
