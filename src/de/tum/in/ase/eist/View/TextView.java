@@ -12,35 +12,35 @@ public class TextView extends View {
     private ScannerWrapper scanner;
 
     public TextView(Controller controller, List<MFT> mftList) {
-		super(controller, mftList);
+        super(controller, mftList);
         this.scanner = new ScannerWrapper(new Scanner(System.in));
     }
 
-	public void run() {
-		while (true) {
-			System.out.println("\nStock: ");
+    public void run() {
+        while (true) {
+            System.out.println("\nStock: ");
             printStock(mfts);
-			System.out.println("\nBalance: " + this.balance);
-			System.out.println("\n> To buy a new MFT, type b.\n> To change the price of a MFT, type c.");
-			String input = "";
+            System.out.println("\nBalance: " + this.balance);
+            System.out.println("\n> To buy a new MFT, type b.\n> To change the price of a MFT, type c.");
+            String input = "";
             try {
                 input = scanner.nextLine();
             } catch (Exception e) {
-				System.out.println("Closing application.");
+                System.out.println("Closing application.");
                 return;
             }
-			switch (input) {
-				case "b":
-					buy();
-					break;
-				case "c":
-					changePrice();
-					break;
-				default:
-					System.out.println("Invalid input\n");
-			}
-		}
-	}
+            switch (input) {
+                case "b":
+                    buy();
+                    break;
+                case "c":
+                    changePrice();
+                    break;
+                default:
+                    System.out.println("Invalid input\n");
+            }
+        }
+    }
 
     private void printStock(List<MFT> mfts) {
         System.out.println("ID\tName\tDescription\tPrice\tOwner");
@@ -57,31 +57,57 @@ public class TextView extends View {
     // Finish this method
     // Use the public methods of the controller to check if the MFT exists and then buy it
     // Remember that the controller can throw exceptions
+
+    // TODO This method should allow you to buy an MFT that you do not own already.
+    //  The method read a valid MFT ID from the command line
+    //  and asks the Controller to buy the MFT.
     public void buy() {
         System.out.println("Beginning new transaction:");
         System.out.print("MFT ID: ");
         int mftID = scanner.nextInt();
-		scanner.nextLine();
+        scanner.nextLine();
         // EDIT BELOW THIS LINE
+        try {
+            for (MFT mft : mfts) {
+                if (mft.getId() == mftID) {
+                    controller.buyMFT(mft, getID());
+                }
+            }
+        } catch (Exception e) {
+
+        }
 
         // STOP EDITING HERE
     }
 
-    // TODO L03P02 View 3.2: Finish changePrice method
-	public void changePrice() {
+    // TODO L03P02 View 3.2: Finish changePrice method.
+    //  This method should allow you to change the price of an MFT that you already own.
+    //  The method reads a valid MFT ID from the command line
+    //  and a price (double) and asks the Controller to change the price.
+    public void changePrice() {
         System.out.println("Changing price of MFT");
         System.out.print("MFT ID: ");
         int mftID = scanner.nextInt();
-		scanner.nextLine();
+        scanner.nextLine();
 
         System.out.print("New price (double): ");
         double newPrice = scanner.nextDouble();
-		scanner.nextLine();
+        scanner.nextLine();
 
         // Finish this method
-        // Use the public methods of the controller to check if the MFT exists and then change its price
+        // Use the public methods of the controller to check if the MFT exists
+        // and then change its price
         // Remember that the controller can throw exceptions
         // EDIT BELOW THIS LINE
+        try {
+            MFT mft = controller.getMFTById(mftID);
+            if (mft != null) {
+                setBalance(newPrice + getBalance());
+            }
+        } catch (Exception e) {
+
+        }
+
 
         // STOP EDITING HERE
     }
