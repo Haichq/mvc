@@ -89,7 +89,9 @@ public class Controller {
         if (view.getID() != mftDAO.getOwnerId(mft)) {
             throw new Exception("You are not the owner!");
         }
+
         view.setBalance(view.getBalance()+newPrice);
         mft.notifyObservers();
+        mftDAO.updateMFT(mft);
     }
 }
