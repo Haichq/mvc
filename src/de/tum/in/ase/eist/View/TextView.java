@@ -69,8 +69,8 @@ public class TextView extends View {
         // EDIT BELOW THIS LINE
         try {
             MFT mft = controller.getMFTById(mftID);
-            int ownerId =  controller.getMFTOwnerId(mft);
-            if (mft != null && ownerId != getID()) {
+
+            if (mft != null) {
                 controller.buyMFT(mft, getID());
             }
         } catch (Exception e) {
@@ -101,9 +101,7 @@ public class TextView extends View {
         // EDIT BELOW THIS LINE
         try {
             MFT mft = controller.getMFTById(mftID);
-            int ownerId =  controller.getMFTOwnerId(mft);
-
-            if (mft != null && ownerId == getID()) {
+            if (mft != null ) {
                 controller.changePrice(mft, newPrice);
 
             }
