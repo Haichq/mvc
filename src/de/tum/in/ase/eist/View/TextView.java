@@ -72,47 +72,44 @@ public class TextView extends View {
             if (mft != null) {
                 controller.buyMFT(mft, getID());
             }
+        } catch (Exception e) {
 
-    } catch(
-    Exception e)
+        }
 
-    {
-
+        // STOP EDITING HERE
     }
 
-    // STOP EDITING HERE
-}
-
-// TODO L03P02 View 3.2: Finish changePrice method.
+    // TODO L03P02 View 3.2: Finish changePrice method.
 //  This method should allow you to change the price of an MFT that you already own.
 //  The method reads a valid MFT ID from the command line
 //  and a price (double) and asks the Controller to change the price.
-public void changePrice() {
-    System.out.println("Changing price of MFT");
-    System.out.print("MFT ID: ");
-    int mftID = scanner.nextInt();
-    scanner.nextLine();
+    public void changePrice() {
+        System.out.println("Changing price of MFT");
+        System.out.print("MFT ID: ");
+        int mftID = scanner.nextInt();
+        scanner.nextLine();
 
-    System.out.print("New price (double): ");
-    double newPrice = scanner.nextDouble();
-    scanner.nextLine();
+        System.out.print("New price (double): ");
+        double newPrice = scanner.nextDouble();
+        scanner.nextLine();
 
-    // Finish this method
-    // Use the public methods of the controller to check if the MFT exists
-    // and then change its price
-    // Remember that the controller can throw exceptions
-    // EDIT BELOW THIS LINE
-    try {
-        MFT mft = controller.getMFTById(mftID);
-        if (mft != null) {
-            setBalance(newPrice + getBalance());
+        // Finish this method
+        // Use the public methods of the controller to check if the MFT exists
+        // and then change its price
+        // Remember that the controller can throw exceptions
+        // EDIT BELOW THIS LINE
+        try {
+            MFT mft = controller.getMFTById(mftID);
+            if (mft != null) {
+
+                controller.changePrice(mft, newPrice);
+            }
+        } catch (Exception e) {
+
         }
-    } catch (Exception e) {
 
+
+        // STOP EDITING HERE
     }
-
-
-    // STOP EDITING HERE
-}
 
 }
