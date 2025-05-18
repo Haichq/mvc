@@ -69,7 +69,8 @@ public class TextView extends View {
         // EDIT BELOW THIS LINE
         try {
             MFT mft = controller.getMFTById(mftID);
-            if (mft != null) {
+            int ownerId =  controller.getMFTOwnerId(mft);
+            if (mft != null && ownerId != getID()) {
                 controller.buyMFT(mft, getID());
             }
         } catch (Exception e) {
