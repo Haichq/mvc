@@ -61,11 +61,10 @@ public class Controller {
         Transaction transaction;
         if (view.getBalance() >= mftPrice) {
             mftDAO.addMFT(buyerID, mft);
-            view.setBalance(view.getBalance()-mftPrice);
-          mftDAO.recordTransaction(mftDAO.getOwnerId(mft), buyerID, mft.getId(), mftPrice);
+            view.setBalance(view.getBalance() - mftPrice);
+            mftDAO.recordTransaction(mftDAO.getOwnerId(mft), buyerID, mft.getId(), mftPrice);
 
         }
-
 
 
     }
@@ -77,11 +76,20 @@ public class Controller {
     // - changePrice(MFT mft, double newPrice): void
     // This method should allow you to change the price of an MFT that you own
     // DO NOT CHANGE THE METHOD SIGNATURE
-    public void changePrice(MFT mft, double newPrice) throws Exception {
-        int ownerId = mftDAO.getOwnerId(mft);
-        if (mft.getId() == mftDAO.getOwnerId(mft)) {
 
-            mftDAO.addMFT(ownerId, mft);
+    // TODO This method should allow you to change the price of an MFT that you already own.
+    //  The price can only be changed if the user is the owner of the MFT
+    //  and all inputs are valid. The database is updated accordingly
+    //  and the view is notified.
+    public void changePrice(MFT mft, double newPrice) throws Exception {
+        if (mft == null) {
+            throw new Exception("MFT cannt be null!");
         }
+        int ownerId = mftDAO.getOwnerId(mft);
+        if (view.getID() != mftDAO.getOwnerId(mft)) {
+            throw new Exception("You are not the owner!");
+        }
+        view.setBalance(view.getBalance()+newPrice);
+        mft.notifyObservers();
     }
 }
