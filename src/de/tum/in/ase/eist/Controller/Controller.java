@@ -7,14 +7,14 @@ import de.tum.in.ase.eist.View.*;
 import java.util.List;
 
 public class Controller {
-    private final MFT_DAO mftDAO;
+	private final MFT_DAO mftDAO;
 
     // For now we only have a single client
     private View view;
 
     public Controller(DatabaseHelper databaseHelper, TransactionLog transactionLog) {
         this.mftDAO = new MFT_DAO(databaseHelper, transactionLog);
-        this.view = null;
+		this.view = null;
     }
 
     public void registerClient(View view) {
@@ -25,18 +25,18 @@ public class Controller {
         return mftDAO.getOwnerId(mft);
     }
 
-    public MFT getMFTById(int id) {
-        return mftDAO.selectMFTById(id);
-    }
+	public MFT getMFTById(int id) {
+		return mftDAO.selectMFTById(id);
+	}
 
     public List<MFT> getMFTs() {
         return mftDAO.selectMFTs();
     }
 
-    // helper to add stock that doesn't belong to us
-    public void addMFT(MFT mft) {
-        mftDAO.addMFT(999, mft);
-    }
+	// helper to add stock that doesn't belong to us
+	public void addMFT(MFT mft) {
+		mftDAO.addMFT(999, mft);
+	}
 
     // TODO L03P02 Controller 2.1: Implement buyMFT method
     // Implement the following method
@@ -46,52 +46,13 @@ public class Controller {
     // If buying is possible, add the Transaction to the TransactionLog
     // DO NOT CHANGE THE METHOD SIGNATURE
     public void buyMFT(MFT mft, int buyerID) throws Exception {
-        if (mft == null) {
-            throw new Exception("MFT cannot be null");
-        }
-        int ownerID = mftDAO.getOwnerId(mft);
-        if (ownerID == buyerID) {
-            throw new Exception("You can not buy mft from yourself");
-        }
-        double mftPrice = mft.getPrice();
-        if (view.getBalance() < mftPrice) {
-            throw new Exception("You don#t have enough money");
-        }
-
-        Transaction transaction;
-        if (view.getBalance() >= mftPrice) {
-            mftDAO.addMFT(buyerID, mft);
-            view.setBalance(view.getBalance() - mftPrice);
-            mftDAO.recordTransaction(mftDAO.getOwnerId(mft), buyerID, mft.getId(), mftPrice);
-
-        }
-
-
     }
 
     // TODO L03P02 Controller 2.2: Implement changePrice method
-    //  This method should allow you to change the price of an MFT that you already own.
-    //  The price can only be changed if the user is the owner of the MFT and all inputs are valid. The database is updated accordingly and the view is notified.
     // Implement the following method
     // - changePrice(MFT mft, double newPrice): void
     // This method should allow you to change the price of an MFT that you own
     // DO NOT CHANGE THE METHOD SIGNATURE
-
-    // TODO This method should allow you to change the price of an MFT that you already own.
-    //  The price can only be changed if the user is the owner of the MFT
-    //  and all inputs are valid. The database is updated accordingly
-    //  and the view is notified.
     public void changePrice(MFT mft, double newPrice) throws Exception {
-        if (mft == null) {
-            throw new Exception("MFT cannt be null!");
-        }
-        int ownerId = mftDAO.getOwnerId(mft);
-        if (view.getID() != mftDAO.getOwnerId(mft)) {
-            throw new Exception("You are not the owner!");
-        }
-
-        view.setBalance(view.getBalance()+newPrice);
-        mft.notifyObservers();
-        mftDAO.updateMFT(mft);
     }
 }
